@@ -1,0 +1,123 @@
+Model Evaluation & ,metrics / Mastering Model Evaluation
+
+1.sklearn metrics
+  master the use of sklearnmetrics for comprehensive model evaluation
+2.Regression metrics
+  learn to evaluate regression models using MAE,MSE,ANS RMSE
+3.confusion matrics
+  understand how to use a confuion matrics to analyse model performance
+4.classification metrics
+  learn to evaluate classification models using accuracy , precision ,recall and f1 score
+
+
+Accuracy --> the % of total prediction of correct
+    accuracy  = correct_pred / total_pred
+accuracy is not enough when your datais unbalanced
+
+precision --> covid camp --> 10 people --> 6 sach me bimar the to 60% precision
+   avoid the false 
+use when false alaram are dangour
+
+
+recall --> 10 me se 8 ko covid he model 6 bola 6/8 --> 75%
+   jab real cases ke sach match ya catch karna ho to 
+   when missing case is dangour
+
+F1 score --> data imbalanced (95%-->healthy , 5% -->unhealthy) --> don't want biased
+
+# sklean metrics
+
+from sklearn.metrics import accuracy_score,precision_score,recall_score,f1_score
+
+# true answer (what acutally happend)
+y_true = [1,0,1,1,0,1,0]
+
+# model's prediction (what it predicted)
+y_pred = [1,0,1,0,0,1,1]
+
+#evaluation
+print('Accuracy: ',accuracy_score(y_true,y_pred))
+print('precision:', precision_score(y_true,y_pred))
+print('Recall:', recall_score(y_true,y_pred))
+print('f1_score:',f1_score(y_true,y_pred))
+
+
+confusion matrix
+
+machine --> yes / no  (yes bola to --> sahi bhi ho sakta he ya nahi)-->(same for no)
+
+student          actual result           machine 
+A                  pass                   pass
+B                   fail                   fail
+C                  pass                    fail 
+D                  fail                    pass
+
+1. TP (true positive)  M and student --> pass (CG)
+2. TN (true negative)   machine --> fail  , student --> fail (CG)
+3. FP (false positive)  machine --> pass , student --> fail (WG)
+4. FN (false negative)  machine --> fail , student --> pass(Wrong Guess)
+
+                    actual pass              actual fail
+
+pred_pass           TP                       FP
+
+pred_fail           FN                       TN
+
+more no. of FP --> student ko praise de rahe ho jo fail hue he
+more no. of FN  --> ignoring the students who actually Passed
+
+from sklearn.metrics import confusion_matrix
+
+y_true = [1,0,1,1,0,1,0,0,1,0] 
+y_pred = [1,0,1,0,0,1,1,0,1,0]
+
+cm = confusion_matrix(t_true,y_pred)
+
+print('Confusion matrix)
+print(cm)
+
+# fraud detection / crime detection me help karega
+
+
+how for my model is good --> MAE MSE RMSE
+
+student          actual result           machine          mistake 
+A                  90                     85                5
+B                  60                     70                10
+C                  80                     70                10
+D                  100                    95                5
+
+* MAE --> mean absolute error
+1. take the mistake difference 
+2. remove minus sign 
+3. add mistakes  
+4. divide it by no. of students
+
+MAE = (5+10+10+5)/4 = 7.5
+MAE = 7.5 on average 
+
+* MSE --> mean squared error
+1. square each mistake 
+2. add them 
+3. divide by total no. of 
+
+MSE = (25+100+100+25)/4 = 62.5
+
+*RMSE --> root mean squared error
+
+
+from sklearn.metrics import mean_absolute_error,mean_squared_error
+import numpy as np 
+ 
+# real scores
+y_true = [90,60,80,100]
+# pred scores
+y_pred = [85,70,70,95]
+
+mae = mean_absolute_error(y_true,y_pred)
+mse = mean_squared_error(y_true,y_pred)
+rmse = np.sqrt(mse)
+
+print("MAE : on average off by : ",mae) # 7.5
+print("MSE : squared mistake value : ",mse) # 62.5
+print("RMSE : Final Realistic error : ",rmse) # 7.90569...

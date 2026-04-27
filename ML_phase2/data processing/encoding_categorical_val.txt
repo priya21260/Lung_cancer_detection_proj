@@ -1,0 +1,19 @@
+Car brand --> BMW,Audi,Tesla
+Fule type --> Petrol,Diesel,CNG 
+
+linearRegression , KNN , Decision tree --> deal with numeric values
+
+BMW ? Petrol ?
+
+Encoding --> help to convert categorical to numeric form
+
+BMW = 0 or [1,0,0]
+Audi = 1 or [0,1,0]
+Tesla = 2 or [0,0,1]
+
+
+label encoding --> same category -> numeric
+
+Category gender         True or False
+  male --> 0               yes = 1
+  female --> 1             No = 0
